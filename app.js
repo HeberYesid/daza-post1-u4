@@ -42,6 +42,7 @@ function agregarTarjeta() {
   // Crear el elemento DOM y añadirlo a la galería
   const elemento = crearElementoTarjeta(nuevaTarjeta);
   galeria.appendChild(elemento);
+  actualizarContador();
 }
 // Registrar el evento del botón
 document
@@ -56,9 +57,11 @@ galeria.addEventListener("click", (e) => {
   // Eliminar del estado
   tarjetas = tarjetas.filter((t) => t.id !== idEliminar);
   // Eliminar del DOM
-  const elementoTarjeta = galeria.querySelector(`[data
-id="${idEliminar}"]`);
-  if (elementoTarjeta) elementoTarjeta.remove();
+  const elementoTarjeta = galeria.querySelector(`[data-id="${idEliminar}"]`);
+  if (elementoTarjeta) {
+    elementoTarjeta.remove();
+    actualizarContador();
+  }
 });
 
 const btnsFiltro = document.querySelectorAll(".btn-filtro");
@@ -74,16 +77,20 @@ btnsFiltro.forEach((btn) => {
       if (categoriaFiltro === "todas") {
         tarjeta.classList.remove("oculta");
       } else {
-        const coincide = tarjeta.classList.contains(`categoria
-${categoriaFiltro}`);
+        const coincide = tarjeta.classList.contains(
+          `categoria-${categoriaFiltro}`,
+        );
         tarjeta.classList.toggle("oculta", !coincide);
       }
     });
+    actualizarContador();
   });
 });
 // Actualizar el contador de tarjetas
 function actualizarContador() {
   const visibles = galeria.querySelectorAll(".tarjeta:not(.oculta)").length;
+  const total = galeria.querySelectorAll(".tarjeta").length;
+
   let contador = document.querySelector("#contador");
   if (!contador) {
     contador = document.createElement("p");
@@ -93,16 +100,17 @@ function actualizarContador() {
       .insertAdjacentElement("afterend", contador);
   }
   contador.textContent = `Mostrando ${visibles} tarjeta(s)`;
+
   // Mensaje de galería vacía
-  const sinTarjetas = galeria.querySelectorAll(".tarjeta").length === 0;
-  galeria.innerHTML = sinTarjetas
-    ? `<p class="mensaje-vacio">No hay tarjetas. Crea la primera usando 
-el formulario.</p>`
-    : galeria.innerHTML;
-  if (!sinTarjetas) {
+  if (total === 0) {
+    if (!galeria.querySelector(".mensaje-vacio")) {
+      galeria.innerHTML = `<p class="mensaje-vacio">No hay tarjetas. Crea la primera usando el formulario.</p>`;
+    }
+  } else {
     const msgVacio = galeria.querySelector(".mensaje-vacio");
     if (msgVacio) msgVacio.remove();
   }
 }
-// Llamar actualizarContador después de agregar o eliminar
-// (integrar en las funciones agregarTarjeta y el listener de galeria)
+
+// Inicialización
+actualizarContador();
