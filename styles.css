@@ -1,0 +1,128 @@
+:root {
+  --primary: #3498db;
+  --secondary: #2ecc71;
+  --danger: #e74c3c;
+  --bg: #f4f7f6;
+  --card-bg: #fff;
+  --text: #333;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header h1 {
+  color: var(--primary);
+  margin-bottom: 2rem;
+}
+
+#controles,
+#filtros {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.btn-filtro.activo {
+  background-color: var(--secondary);
+}
+
+#galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.tarjeta {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.categoria-tecnologia .badge {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+.categoria-ciencia .badge {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+.categoria-arte .badge {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.btn-eliminar {
+  background-color: var(--danger);
+  margin-top: 10px;
+  width: 100%;
+}
+
+.oculta {
+  display: none;
+}
+
+#contador {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.mensaje-vacio {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
